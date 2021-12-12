@@ -27,7 +27,7 @@ func main() {
 	var gamma strings.Builder
 	var epsilon strings.Builder
 	for i:=0;i<bits_n;i++ {
-		if ones[i] > zeros[i] {
+		if ones[i] >= zeros[i] {
 			gamma.WriteString("1")
 			epsilon.WriteString("0")
 		} else {
