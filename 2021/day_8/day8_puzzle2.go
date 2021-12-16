@@ -22,16 +22,6 @@ func get_input(f *os.File) ([][]string, [][]string) {
 	return signal_patterns, outputs
 }
 
-func print_map(m map[rune]map[rune]bool) {
-	for _, char := range "abcdefg" {
-		fmt.Printf("\n%c->", char)
-		for _, char2 := range "abcdefg" {
-			fmt.Printf(" %c: %v,", char2, m[char][char2])
-		}
-	}
-	fmt.Println()
-}
-
 func generate_number(signal_pattern []string, output []string) int {
 	blueprint := make(map[int]string)
 	blueprint[0] = "abcefg"
@@ -131,13 +121,7 @@ func generate_number(signal_pattern []string, output []string) int {
 				}
 			}
 		}
-
-		// fmt.Println("======================")
-		// fmt.Println(word)
-		// fmt.Println(possible_ints)
-		// print_map(m)
 	}
-	// print_map(m)
 
 	mapping := make(map[rune]rune)
 	for _, char1 := range "abcdefg" {
@@ -162,9 +146,6 @@ func generate_number(signal_pattern []string, output []string) int {
 
 		sum += reverse[actual_string]*multiplier
 		multiplier/=10
-		// fmt.Println(word)
-		// fmt.Println(actual_string)
-		// fmt.Println(sum)
 	}
 	return sum
 }
@@ -172,8 +153,6 @@ func generate_number(signal_pattern []string, output []string) int {
 func main() {
 	f, _ := os.Open("input.txt")
 	signal_patterns, outputs := get_input(f)
-	// val := generate_number(signal_pattern[0], outputs[0])
-	// fmt.Println(val)
 	sum := 0
 	for i := 0;i<len(signal_patterns);i++ {
 		sum += generate_number(signal_patterns[i], outputs[i])
