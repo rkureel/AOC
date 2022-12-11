@@ -1,4 +1,4 @@
-pub fn day_01_part_1(input: &String) {
+pub fn part_1(input: &String) {
     let mut max_sum: i32 = 0;
     let mut cur_sum: i32 = 0;
     for line in input.lines() {
@@ -20,7 +20,7 @@ pub fn day_01_part_1(input: &String) {
     println!("Part 1: {max_sum}");
 }
 
-pub fn day_02_part_2(input: &String) {
+pub fn part_2(input: &String) {
     let mut calories_vec: Vec<i32> = Vec::new();
     let mut cur_sum: i32 = 0;
     for line in input.lines() {
