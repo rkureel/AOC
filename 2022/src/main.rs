@@ -1,12 +1,12 @@
 use std::fs;
 
-use aoc2022::day_04;
+use aoc2022::day_05;
 
 fn main() {
-    let filepath = "inputs/day_04.txt";
+    let filepath = "inputs/day_05.txt";
     let input = fs::read_to_string(filepath)
     .expect("Unable to read input file.");
     
-    day_04::part_1(&input);
-    day_04::part_2(&input);
+    day_05::part_1(&input);
+    day_05::part_2(&input);
 }
