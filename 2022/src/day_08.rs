@@ -101,7 +101,6 @@ pub fn part_2(input: &String) {
                 down = (grid.len()-1) as i32;
             }
             let score: i32 = (row-up)*(col-left)*(right-col)*(down-row);
-            //println!("row: {} col: {} left: {} right: {} up: {} down: {} score: {} grid: {}", row, col, left, right, up, down, score, grid[row as usize][col as usize]);
             if score > max_scenic_score {
                 max_scenic_score = score;
             }
