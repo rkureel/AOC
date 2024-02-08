@@ -1,26 +1,21 @@
 pub fn solve(input: &str) {
     println!("Solving for day 1.");
+    part_1(input);
+}
+
+fn part_1(input: &str) {
     let mut sum: u32 = 0;
     for line in input.lines() {
-        let mut first_digit: u32 = 0;
-        let mut second_digit: u32 = 0;
-        for c in line.chars() {
-            if c.is_ascii_digit() {
-                first_digit = c.to_digit(10)
-                    .unwrap();
-                break;
+        let digits: Vec<u32> = line.chars()
+            .filter_map(|c| c.to_digit(10))
+            .collect();
+
+        if let Some(first_digit) = digits.first() {    
+            if let Some(last_digit) = digits.last() {
+                sum += first_digit*10 + last_digit;
             }
         }
-        for c in line.chars().rev() {
-            if c.is_ascii_digit() {
-                second_digit = c.to_digit(10)
-                    .unwrap();
-                break;
-                
-            }
-        }
-        let caliberation_value: u32 = first_digit*10 + second_digit;
-        sum += caliberation_value;
     }
-    dbg!(sum);
+    println!("Solution for part 1: {}", sum);
 }
+
