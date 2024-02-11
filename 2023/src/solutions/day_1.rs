@@ -1,11 +1,11 @@
-pub fn solve(input: &str) {
+pub fn solve(input: &Vec<String>) {
     println!("Solving for day 1.");
     part_1(input);
 }
 
-fn part_1(input: &str) {
+fn part_1(input: &Vec<String>) {
     let mut sum: u32 = 0;
-    for line in input.lines() {
+    for line in input {
         let digits: Vec<u32> = line.chars()
             .filter_map(|c| c.to_digit(10))
             .collect();
