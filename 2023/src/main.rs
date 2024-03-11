@@ -17,6 +17,7 @@ fn solve(day: u8, use_example: bool) {
     let input: Vec<String> = utils::get_input(day, use_example); 
     match day {
         1 => solutions::day_1::solve(&input),
+        2 => solutions::day_2::solve(&input),
         _ => print!("Invalid day!"),
     }
 }
