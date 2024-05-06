@@ -1,8 +1,10 @@
+use std::cmp::max;
 
 pub fn solve(input: &Vec<String>) {
     println!("Solving for day 2");
     let games: Vec<Game> = parse(input);
     part_1(&games);
+    part_2(&games);
 }
 
 fn parse(input: &Vec<String>) -> Vec<Game> {
@@ -69,6 +71,27 @@ fn part_1(games: &Vec<Game>) {
         .sum();
 
     println!("Part 1 solution: {possible_games_sum}");
+}
+
+fn part_2(games: &Vec<Game>) {
+    let power_sum: u32 = games.iter().map(|game| {
+        let mut max_observed_red: u8 = u8::MIN;
+        let mut max_observed_green: u8 = u8::MIN;
+        let mut max_observed_blue: u8 = u8::MIN;
+
+        game.cube_sets
+            .iter()
+            .for_each(|cube_set| {
+                max_observed_red = max(cube_set.n_red, max_observed_red);
+                max_observed_green = max(cube_set.n_green, max_observed_green);
+                max_observed_blue = max(cube_set.n_blue, max_observed_blue);
+            });
+        u32::from(max_observed_red) * u32::from(max_observed_blue) * u32::from(max_observed_green)
+    
+    })
+    .sum();
+
+    println!("Part 2 solution: {power_sum}");
 }
 
 #[derive(Debug)]
