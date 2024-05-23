@@ -1,6 +1,7 @@
 pub fn solve(input: &Vec<String>) {
     let engine: Engine = parse(input);
-    dbg!(engine);
+    part_1(&engine);
+    part_2(&engine);
 }
 
 fn parse(input: &Vec<String>) -> Engine {
@@ -42,6 +43,33 @@ fn parse(input: &Vec<String>) -> Engine {
         line_count += 1;
     });
     Engine { numbers, symbols }
+}
+
+fn part_1(engine: &Engine) {
+    let part_number_sum: u32 = engine.numbers.iter().filter_map(|number| {
+        let mut adjacent_to_symbol: bool = false;
+        let number_left_range: u32 = if number.position.x_start > 0 { number.position.x_start-1 } else { number.position.x_start };
+        let number_top_range: u32 = if number.position.y > 0 { number.position.y-1 } else { number.position.y };
+        engine.symbols.iter().for_each(|symbol| {
+            if symbol.position.x_start >= number_left_range 
+            && symbol.position.x_start <= number.position.x_end 
+            && symbol.position.y >= number_top_range 
+            && symbol.position.y <= number.position.y+1 {
+                adjacent_to_symbol = true;
+            } 
+        });
+
+        if adjacent_to_symbol {
+            Some(number.value)
+        } else {
+            None
+        }
+    }).sum();
+    println!("Part 1 solution: {part_number_sum}");
+}
+
+fn part_2(engine: &Engine) {
+
 }
 
 #[derive(Debug)]
