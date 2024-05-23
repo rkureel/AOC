@@ -18,6 +18,7 @@ fn solve(day: u8, use_example: bool) {
     match day {
         1 => solutions::day_1::solve(&input),
         2 => solutions::day_2::solve(&input),
+        3 => solutions::day_3::solve(&input),
         _ => print!("Invalid day!"),
     }
 }
