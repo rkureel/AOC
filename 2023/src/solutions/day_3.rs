@@ -69,7 +69,28 @@ fn part_1(engine: &Engine) {
 }
 
 fn part_2(engine: &Engine) {
-
+    let gear_ratio_sum: u32 = engine.symbols.iter().filter_map(|symbol| {
+        let mut adjacent_numbers: Vec<u32> = Vec::new();
+        engine.numbers.iter().for_each(|number| {
+            let number_left_range: u32 = if number.position.x_start > 0 { number.position.x_start-1 } else { number.position.x_start };
+            let number_top_range: u32 = if number.position.y > 0 { number.position.y-1 } else { number.position.y };
+            
+            if symbol.position.x_start >= number_left_range 
+            && symbol.position.x_start <= number.position.x_end 
+            && symbol.position.y >= number_top_range 
+            && symbol.position.y <= number.position.y+1 {
+                adjacent_numbers.push(number.value);
+            }
+        });
+        
+        if adjacent_numbers.len() == 2 {
+            Some(adjacent_numbers[0]*adjacent_numbers[1])
+        } else {
+            None
+        }
+    
+    }).sum();
+    println!("Part 2 solution: {gear_ratio_sum}");
 }
 
 #[derive(Debug)]
