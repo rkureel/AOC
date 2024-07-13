@@ -4,11 +4,11 @@ use strum_macros::EnumIter;
 
 pub fn solve(input: &Vec<String>) {
     println!("Solving for day 1.");
-    part_1(input);
-    part_2(input);
+    println!("Solution for part 1: {}", part_1(input));
+    println!("Solution for part 2: {}", part_2(input));
 }
 
-fn part_1(input: &Vec<String>) {
+fn part_1(input: &Vec<String>) -> u32 {
     let mut sum: u32 = 0;
     for line in input {
         let digits: Vec<u32> = line.chars()
@@ -21,17 +21,17 @@ fn part_1(input: &Vec<String>) {
             }
         }
     }
-    println!("Solution for part 1: {}", sum);
+    sum
 }
 
 
-pub fn part_2(input: &Vec<String>) {
+fn part_2(input: &Vec<String>) -> u32 {
     let sum: u32 = input.iter().map(|line| {
             let (first_digit, last_digit) = Digit::find_first_and_last_digits(line);
             10*first_digit as u32 + last_digit as u32
         })
         .sum();
-    println!("Solution for part 2: {}", sum);
+    sum
 }
 
 #[derive(Clone, Copy, Debug, EnumIter)]
@@ -113,3 +113,26 @@ impl Digit {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn day_1_part_1() {
+        let input = "1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet";
+        assert_eq!(super::part_1(&crate::generate_test_input(&input)), 142); 
+    }
+
+    #[test]
+    fn day_1_part_2() {
+        let input = "two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen";
+        assert_eq!(super::part_2(&crate::generate_test_input(&input)), 281); 
+    }
+}

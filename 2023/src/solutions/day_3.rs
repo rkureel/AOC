@@ -1,7 +1,7 @@
 pub fn solve(input: &Vec<String>) {
     let engine: Engine = parse(input);
-    part_1(&engine);
-    part_2(&engine);
+    println!("Part 1 solution: {}", part_1(&engine));
+    println!("Part 2 solution: {}", part_2(&engine));
 }
 
 fn parse(input: &Vec<String>) -> Engine {
@@ -45,7 +45,7 @@ fn parse(input: &Vec<String>) -> Engine {
     Engine { numbers, symbols }
 }
 
-fn part_1(engine: &Engine) {
+fn part_1(engine: &Engine) -> u32 {
     let part_number_sum: u32 = engine.numbers.iter().filter_map(|number| {
         let mut adjacent_to_symbol: bool = false;
         let number_left_range: u32 = if number.position.x_start > 0 { number.position.x_start-1 } else { number.position.x_start };
@@ -65,10 +65,10 @@ fn part_1(engine: &Engine) {
             None
         }
     }).sum();
-    println!("Part 1 solution: {part_number_sum}");
+    part_number_sum
 }
 
-fn part_2(engine: &Engine) {
+fn part_2(engine: &Engine) -> u32 {
     let gear_ratio_sum: u32 = engine.symbols.iter().filter_map(|symbol| {
         let mut adjacent_numbers: Vec<u32> = Vec::new();
         engine.numbers.iter().for_each(|number| {
@@ -90,7 +90,7 @@ fn part_2(engine: &Engine) {
         }
     
     }).sum();
-    println!("Part 2 solution: {gear_ratio_sum}");
+    gear_ratio_sum
 }
 
 #[derive(Debug)]
@@ -116,4 +116,28 @@ struct Postition {
     x_start: u32,
     x_end: u32,
     y: u32,
+}
+
+#[cfg(test)]
+mod tests {
+    static INPUT: &str = "467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..";
+    
+    #[test]
+    fn day_3_part_1() {
+        assert_eq!(super::part_1(&super::parse(&crate::generate_test_input(INPUT))), 4361); 
+    }
+
+    #[test]
+    fn day_3_part_2() {
+        assert_eq!(super::part_2(&super::parse(&crate::generate_test_input(INPUT))), 467835); 
+    }
 }

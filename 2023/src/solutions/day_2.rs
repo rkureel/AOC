@@ -3,8 +3,9 @@ use std::cmp::max;
 pub fn solve(input: &Vec<String>) {
     println!("Solving for day 2");
     let games: Vec<Game> = parse(input);
-    part_1(&games);
-    part_2(&games);
+    
+    println!("Part 1 solution: {}", part_1(&games));
+    println!("Part 2 solution: {}", part_2(&games));
 }
 
 fn parse(input: &Vec<String>) -> Vec<Game> {
@@ -48,7 +49,7 @@ fn parse(input: &Vec<String>) -> Vec<Game> {
         .collect()
 }
 
-fn part_1(games: &Vec<Game>) {
+fn part_1(games: &Vec<Game>) -> u32 {
     const MAX_N_RED: u8 = 12;
     const MAX_N_GREEN: u8 = 13;
     const MAX_N_BLUE: u8 = 14;
@@ -69,11 +70,10 @@ fn part_1(games: &Vec<Game>) {
             }
         })
         .sum();
-
-    println!("Part 1 solution: {possible_games_sum}");
+    possible_games_sum
 }
 
-fn part_2(games: &Vec<Game>) {
+fn part_2(games: &Vec<Game>) -> u32 {
     let power_sum: u32 = games.iter().map(|game| {
         let mut max_observed_red: u8 = u8::MIN;
         let mut max_observed_green: u8 = u8::MIN;
@@ -90,8 +90,7 @@ fn part_2(games: &Vec<Game>) {
     
     })
     .sum();
-
-    println!("Part 2 solution: {power_sum}");
+    power_sum 
 }
 
 #[derive(Debug)]
@@ -122,4 +121,25 @@ enum Color {
     Red,
     Green,
     Blue,
+}
+
+#[cfg(test)]
+mod tests {
+
+    static INPUT: &str = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
+Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue
+Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red
+Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
+Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green";
+
+    
+    #[test]
+    fn day_2_part_1() {
+        assert_eq!(super::part_1(&super::parse(&crate::generate_test_input(INPUT))), 8); 
+    }
+
+    #[test]
+    fn day_2_part_2() {
+        assert_eq!(super::part_2(&super::parse(&crate::generate_test_input(INPUT))), 2286); 
+    }
 }
